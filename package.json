@@ -54,7 +54,7 @@
     "gulp-less": "^4.0.1",
     "gulp-rename": "^1.4.0",
     "gulp-sourcemaps": "^2.6.5",
-    "jest": "^23.5.0",
+    "jest": "^26.1.0",
     "miniprogram-simulate": "^1.0.0",
     "through2": "^2.0.3",
     "vinyl": "^2.2.0",

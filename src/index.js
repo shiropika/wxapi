@@ -1,6 +1,6 @@
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/shiropika/wxapi
-// 参考 https://github.com/gooking/wxapi
+// 参考 https://github.com/gooking/wxapi 尊重原作者成果
 var API_BASE_URL = 'https://api.shiropika.com'
 API_BASE_URL = '47.102.207.78' //test
 var subDomain = '-'

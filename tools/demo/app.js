@@ -1,6 +1,6 @@
 /* eslint-disable */
 const WXAPI = require('./components/index')
-WXAPI.init('gooking')
+WXAPI.init('shiropika')
 
 App({
   onLaunch: function () {
@@ -13,9 +13,9 @@ App({
       console.error('接口调用异常:', e)
     })
     // 读取 banner
-    WXAPI.banners().then(res => {
+    /* WXAPI.banners().then(res => {
       console.log('banners:', res)
-    })
+    }) */
   },
   globalData: {
     

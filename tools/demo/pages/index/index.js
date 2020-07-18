@@ -1,6 +1,5 @@
 /* eslint-disable */
 const WXAPI = require('../../components/index')
-//WXAPI.init('gooking')
 
 Page({
   data: {},

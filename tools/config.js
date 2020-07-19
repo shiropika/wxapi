@@ -42,11 +42,36 @@ module.exports = {
     module: {
       rules: [{
         test: /\.js$/i,
-        use: [
-          'babel-loader',
-          'eslint-loader'
-        ],
+        use: [{
+          loader: 'thread-loader',
+        }, {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
+        }, {
+          loader: 'eslint-loader',
+        }],
         exclude: /node_modules/
+      }, {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'thread-loader',
+        }, {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
+        }, {
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/],
+            happyPackMode: true,
+          },
+        }, {
+          loader: 'eslint-loader',
+        }],
       }],
     },
     resolve: {
@@ -60,12 +85,12 @@ module.exports = {
     optimization: {
       minimize: false,
     },
-    // devtool: 'nosources-source-map', // 生成 js sourcemap
+    //devtool: 'source-map', // 生成 js sourcemap
     performance: {
       hints: 'warning',
       assetFilter: assetFilename => assetFilename.endsWith('.js')
     }
   },
 
-  copy: ['./assets', './utils.js'], // 将会复制到目标目录
+  //copy: ['./assets', './utils.js'], // 将会复制到目标目录
 }

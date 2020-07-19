@@ -14,11 +14,12 @@ try {
 
 const oldLoad = simulate.load
 simulate.load = function (componentPath, ...args) {
-  if (typeof componentPath === 'string') componentPath = path.join(srcPath, componentPath)
+  if (typeof componentPath === 'string') componentPath = path.join(dir, componentPath)
   return oldLoad(componentPath, ...args)
 }
 
 module.exports = simulate
+
 // adjust the simulated wx api 
 const oldGetSystemInfoSync = global.wx.getSystemInfoSync
 global.wx.getSystemInfoSync = function() {

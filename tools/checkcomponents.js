@@ -4,6 +4,7 @@ const _ = require('./utils')
 const config = require('./config')
 
 const srcPath = config.srcPath
+let hasCheckCompoenntMap = {}
 
 /**
  * 获取 json 路径相关信息
@@ -23,14 +24,13 @@ function getJsonPathInfo(jsonPath) {
  * 检测是否包含其他自定义组件
  */
 const checkProps = ['usingComponents', 'componentGenerics']
-const hasCheckMap = {}
 async function checkIncludedComponents(jsonPath, componentListMap) {
   const json = _.readJson(jsonPath)
   if (!json) throw new Error(`json is not valid: "${jsonPath}"`)
 
   const {dirPath, fileName, fileBase} = getJsonPathInfo(jsonPath)
-  if (hasCheckMap[fileBase]) return
-  hasCheckMap[fileBase] = true
+  if (hasCheckCompoenntMap[fileBase]) return
+  hasCheckCompoenntMap[fileBase] = true
 
   for (let i = 0, len = checkProps.length; i < len; i++) {
     const checkProp = checkProps[i]
@@ -40,7 +40,7 @@ async function checkIncludedComponents(jsonPath, componentListMap) {
     for (let j = 0, jlen = keys.length; j < jlen; j++) {
       const key = keys[j]
       let value = typeof checkPropValue[key] === 'object' ? checkPropValue[key].default : checkPropValue[key]
-      if (!value) continue
+      if (!value || typeof value === 'boolean') continue
 
       value = _.transformPath(value, path.sep)
 
@@ -53,13 +53,20 @@ async function checkIncludedComponents(jsonPath, componentListMap) {
     }
   }
 
+  const wholeFileBase = path.join(dirPath, fileName)
+  let jsExt = '.js'
+  const isJsFileExists = await _.checkFileExists(wholeFileBase + '.ts')
+  if (isJsFileExists) {
+    jsExt = '.ts'
+  }
+
   // 进入存储
   componentListMap.wxmlFileList.push(`${fileBase}.wxml`)
   componentListMap.wxssFileList.push(`${fileBase}.wxss`)
   componentListMap.jsonFileList.push(`${fileBase}.json`)
-  componentListMap.jsFileList.push(`${fileBase}.js`)
+  componentListMap.jsFileList.push(`${fileBase}${jsExt}`)
 
-  componentListMap.jsFileMap[fileBase] = `${path.join(dirPath, fileName)}.js`
+  componentListMap.jsFileMap[fileBase] = `${wholeFileBase}${jsExt}`
 }
 
 module.exports = async function (entry) {
@@ -76,12 +83,19 @@ module.exports = async function (entry) {
   if (!isExists) {
     const {dirPath, fileName, fileBase} = getJsonPathInfo(entry)
 
-    componentListMap.jsFileList.push(`${fileBase}.js`)
-    componentListMap.jsFileMap[fileBase] = `${path.join(dirPath, fileName)}.js`
+    const wholeFileBase = path.join(dirPath, fileName)
+    let jsExt = '.js'
+    const isJsFileExists = await _.checkFileExists(wholeFileBase + '.ts')
+    if (isJsFileExists) {
+      jsExt = '.ts'
+    }
+    componentListMap.jsFileList.push(`${fileBase}${jsExt}`)
+    componentListMap.jsFileMap[fileBase] = `${wholeFileBase}${jsExt}`
 
     return componentListMap
   }
 
+  hasCheckCompoenntMap = {}
   await checkIncludedComponents(entry, componentListMap)
 
   return componentListMap

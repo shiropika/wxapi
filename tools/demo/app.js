@@ -13,9 +13,9 @@ App({
       console.error('接口调用异常:', e)
     })
     // 读取 banner
-    /* WXAPI.banners().then(res => {
+    WXAPI.banners().then(res => {
       console.log('banners:', res)
-    }) */
+    }) 
   },
   globalData: {
     

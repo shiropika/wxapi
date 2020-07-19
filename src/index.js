@@ -1,8 +1,9 @@
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/shiropika/wxapi
-// 参考 https://github.com/gooking/wxapi 尊重原作者成果
+// FROM:https://github.com/gooking/wxapi 
 var API_BASE_URL = 'https://api.shiropika.com'
-API_BASE_URL = '47.102.207.78' //test
+API_BASE_URL = 'http://47.102.207.78'//test
+API_BASE_URL = 'https://localhost:5001/'//test
 var subDomain = '-'
 
 let request = (url, needSubDomain, method, data) => {

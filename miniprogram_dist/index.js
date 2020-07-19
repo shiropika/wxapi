@@ -97,7 +97,7 @@ module.exports =
 // FROM:https://github.com/gooking/wxapi 
 var API_BASE_URL = 'https://api.shiropika.com';
 API_BASE_URL = 'http://47.102.207.78'; //test
-API_BASE_URL = 'https://localhost:5001/'; //test
+API_BASE_URL = 'https://localhost:5001'; //test
 var subDomain = '-';
 
 var request = function request(url, needSubDomain, method, data) {

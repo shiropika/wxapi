@@ -1,6 +1,6 @@
 {
   "name": "shiropika-wxapi",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "小程序API",
   "main": "miniprogram_dist/index.js",
   "scripts": {

@@ -654,12 +654,12 @@ module.exports = {
   withDrawLogs: function withDrawLogs(data) {
     return request('/user/withDraw/list', true, 'post', data);
   },
-  province: function province() {
-    return request('/common/region/v2/province', false, 'get');
+  province: function province(token) {
+    return request('/common/region/v2/province', false, 'get', { token: token });
   },
-  nextRegion: function nextRegion(pid) {
+  nextRegion: function nextRegion(token, pid) {
     return request('/common/region/v2/child', false, 'get', {
-      pid: pid
+      token: token, pid: pid
     });
   },
   cashLogs: function cashLogs(data) {

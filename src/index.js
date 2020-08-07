@@ -535,12 +535,12 @@ module.exports = {
   withDrawLogs: (data) => {
     return request('/user/withDraw/list', true, 'post', data)
   },
-  province: () => {
-    return request('/common/region/v2/province', false, 'get')
+  province: (token) => {
+    return request('/common/region/v2/province', false, 'get',{token})
   },
-  nextRegion: (pid) => {
+  nextRegion: (token,pid) => {
     return request('/common/region/v2/child', false, 'get', {
-      pid
+    token,  pid
     })
   },
   cashLogs: (data) => {

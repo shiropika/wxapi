@@ -957,12 +957,12 @@ module.exports = {
       token, deductionScore
     })
   },
-  wxaMpLiveRooms: () => {
-    return request('/wx/live/rooms', true, 'get')
+  wxaMpLiveRooms: function wxaMpLiveRooms(token) {
+    return request('/wx/live/rooms', true, 'get',{token:token});
   },
-  wxaMpLiveRoomHisVedios: (roomId) => {
+  wxaMpLiveRoomHisVedios: (token,roomId) => {
     return request('/wx/live/his', true, 'get', {
-      roomId
+    token,  roomId
     })
   },
 }

@@ -125,18 +125,25 @@ var request = function request(url, needSubDomain, method, data) {
 /**
  * 小程序的promise没有finally方法，自己扩展下
  */
-Promise.prototype.finally = function (callback) {
-  var Promise = this.constructor;
-  return this.then(function (value) {
-    Promise.resolve(callback()).then(function () {
-      return value;
-    });
-  }, function (reason) {
-    Promise.resolve(callback()).then(function () {
-      throw reason;
-    });
-  });
-};
+// Promise.prototype.finally = function (callback) {
+//   var Promise = this.constructor;
+//   return this.then(
+//     function (value) {
+//       Promise.resolve(callback()).then(
+//         function () {
+//           return value;
+//         }
+//       );
+//     },
+//     function (reason) {
+//       Promise.resolve(callback()).then(
+//         function () {
+//           throw reason;
+//         }
+//       );
+//     }
+//   );
+// }
 
 module.exports = {
   init2: function init2(a, b) {
@@ -1117,12 +1124,12 @@ module.exports = {
       token: token, deductionScore: deductionScore
     });
   },
-  wxaMpLiveRooms: function wxaMpLiveRooms() {
-    return request('/wx/live/rooms', true, 'get');
+  wxaMpLiveRooms: function wxaMpLiveRooms(token) {
+    return request('/wx/live/rooms', true, 'get', { token: token });
   },
-  wxaMpLiveRoomHisVedios: function wxaMpLiveRoomHisVedios(roomId) {
+  wxaMpLiveRoomHisVedios: function wxaMpLiveRoomHisVedios(token, roomId) {
     return request('/wx/live/his', true, 'get', {
-      roomId: roomId
+      token: token, roomId: roomId
     });
   }
 };

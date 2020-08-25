@@ -67,7 +67,9 @@
     "webpack": "^4.29.5",
     "webpack-node-externals": "^1.7.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash.template": "^4.5.0"
+  },
   "bugs": {
     "url": "https://github.com/shiropika/wxapi/issues"
   },
